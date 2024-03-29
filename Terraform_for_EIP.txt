@@ -20,7 +20,6 @@ resource "aws_eip" "example_eip" {
   domain   = "vpc"
 }
 
-
 # Associate Elastic IP with EC2 instance
 resource "aws_eip_association" "example_eip_association" {
   instance_id   = aws_instance.example_instance.id
