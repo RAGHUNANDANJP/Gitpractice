@@ -1,3 +1,4 @@
+# Associate an Elastic IP to an EC2 Instance using Terraform
 # Define AWS provider and region
 provider "aws" {
   region = "eu-central-1"
