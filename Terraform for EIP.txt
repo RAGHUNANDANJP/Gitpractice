@@ -1,0 +1,27 @@
+# Define AWS provider and region
+provider "aws" {
+  region = "eu-central-1"
+}
+
+# Create EC2 instance
+resource "aws_instance" "example_instance" {
+  ami           = "ami-0183b16fc359a89dd"  # Specify your desired AMI
+  instance_type = "t2.micro"             # Specify your desired instance type
+  key_name      = "vpctesting"   # Specify your key pair name
+  subnet_id     = "subnet-0fc22d6553c6991d5"       # Specify your subnet ID
+  tags = {
+    Name = "ExampleInstance"
+  }
+}
+
+# Allocate Elastic IP
+resource "aws_eip" "example_eip" {
+  instance = aws_instance.example_instance.id
+  domain   = "vpc"
+}
+
+# Associate Elastic IP with EC2 instance
+resource "aws_eip_association" "example_eip_association" {
+  instance_id   = aws_instance.example_instance.id
+  allocation_id = aws_eip.example_eip.id
+}
